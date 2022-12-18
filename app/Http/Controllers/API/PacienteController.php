@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActualizarRequest;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Http\Requests\PacienteRequest;
@@ -42,9 +43,13 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Paciente $paciente)
     {
         //
+        return response()->json([
+                'res' => true,
+                'paciente' => $paciente
+            ]);
     }
 
     /**
@@ -54,9 +59,14 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActualizarRequest $request, Paciente $paciente)
     {
-        //
+        $paciente->update($request->all());
+        return response()->json([
+            'res' => true,
+            'msg' => 'actulizado correcamente'
+        ], 200 );
+
     }
 
     /**
